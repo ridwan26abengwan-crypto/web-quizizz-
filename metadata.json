@@ -1,0 +1,6 @@
+{
+  "name": "WEB QUIZIZZ — Pembuat Apps by.Ridwan",
+  "description": "Platform pembelajaran digital interaktif Pendidikan Pancasila SD/MI dengan buku digital, quiz interaktif, prestasi siswa, dan Google Drive.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,215 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Akun pengguna terautentikasi dengan peran RBAC dan email terisolasi.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "email": { "type": "string", "format": "email", "maxLength": 160 },
+        "role": { "type": "string", "enum": ["siswa", "guru", "admin"] },
+        "photoURL": { "type": "string", "maxLength": 500 },
+        "classLevel": { "type": "string", "enum": ["I", "II", "III", "IV", "V", "VI", "Umum"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "uid", "name", "email", "role", "createdAt", "updatedAt"]
+    },
+    "Student": {
+      "title": "Student",
+      "description": "Profil progres belajar siswa tanpa PII untuk leaderboard dan statistik.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "classLevel": { "type": "string", "enum": ["I", "II", "III", "IV", "V", "VI"] },
+        "xp": { "type": "number" },
+        "completedQuizzes": { "type": "number" },
+        "highestScore": { "type": "number" },
+        "averageScore": { "type": "number" },
+        "badges": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "uid", "name", "classLevel", "xp", "completedQuizzes", "highestScore", "averageScore", "badges", "createdAt", "updatedAt"]
+    },
+    "Teacher": {
+      "title": "Teacher",
+      "description": "Data profil guru pengampu Pendidikan Pancasila.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "subject": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "school": { "type": "string", "maxLength": 160 },
+        "isActive": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "uid", "name", "subject", "isActive", "createdAt", "updatedAt"]
+    },
+    "Book": {
+      "title": "Book",
+      "description": "Katalog buku digital eksternal Pendidikan Pancasila.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "title": { "type": "string", "minLength": 2, "maxLength": 200 },
+        "subject": { "type": "string", "minLength": 2, "maxLength": 100 },
+        "classLevel": { "type": "string", "enum": ["I", "II", "III", "IV", "V", "VI"] },
+        "curriculum": { "type": "string", "minLength": 2, "maxLength": 100 },
+        "semester": { "type": "string", "enum": ["Ganjil", "Genap", "Tahunan"] },
+        "source": { "type": "string", "minLength": 2, "maxLength": 120 },
+        "url": { "type": "string", "minLength": 8, "maxLength": 500 },
+        "thumbnail": { "type": "string", "maxLength": 500 },
+        "description": { "type": "string", "maxLength": 1000 },
+        "isActive": { "type": "boolean" },
+        "isSample": { "type": "boolean" },
+        "createdBy": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "title", "subject", "classLevel", "curriculum", "semester", "source", "url", "description", "isActive", "createdAt", "updatedAt"]
+    },
+    "Quiz": {
+      "title": "Quiz",
+      "description": "Metadata quiz interaktif Pendidikan Pancasila.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "title": { "type": "string", "minLength": 2, "maxLength": 200 },
+        "subject": { "type": "string", "minLength": 2, "maxLength": 100 },
+        "classLevel": { "type": "string", "enum": ["I", "II", "III", "IV", "V", "VI"] },
+        "durationMinutes": { "type": "number" },
+        "difficulty": { "type": "string", "enum": ["Mudah", "Sedang", "Sulit"] },
+        "questionCount": { "type": "number" },
+        "participantCount": { "type": "number" },
+        "isActive": { "type": "boolean" },
+        "isSample": { "type": "boolean" },
+        "createdBy": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "title", "subject", "classLevel", "durationMinutes", "difficulty", "questionCount", "participantCount", "isActive", "createdBy", "createdAt", "updatedAt"]
+    },
+    "Question": {
+      "title": "Question",
+      "description": "Soal quiz publik tanpa kunci jawaban plaintext.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "quizId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "questionText": { "type": "string", "minLength": 3, "maxLength": 1000 },
+        "options": { "type": "array" },
+        "points": { "type": "number" },
+        "order": { "type": "number" },
+        "sealedKey": { "type": "string", "maxLength": 512 },
+        "createdBy": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "quizId", "questionText", "options", "points", "order", "createdBy", "createdAt", "updatedAt"]
+    },
+    "AnswerKey": {
+      "title": "AnswerKey",
+      "description": "Kunci jawaban terproteksi yang hanya dapat diakses guru dan admin.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "questionId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "quizId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "correctAnswer": { "type": "number" },
+        "explanation": { "type": "string", "maxLength": 1000 },
+        "createdBy": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "questionId", "quizId", "correctAnswer", "createdBy", "createdAt", "updatedAt"]
+    },
+    "QuizResult": {
+      "title": "QuizResult",
+      "description": "Hasil pengerjaan quiz siswa.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "quizId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "quizTitle": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "quizOwnerUid": { "type": "string", "maxLength": 128 },
+        "studentUid": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "studentName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "classLevel": { "type": "string", "enum": ["I", "II", "III", "IV", "V", "VI"] },
+        "score": { "type": "number" },
+        "correctCount": { "type": "number" },
+        "wrongCount": { "type": "number" },
+        "totalQuestions": { "type": "number" },
+        "percentage": { "type": "number" },
+        "durationSeconds": { "type": "number" },
+        "xpEarned": { "type": "number" },
+        "earnedBadges": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "quizId", "quizTitle", "studentUid", "studentName", "classLevel", "score", "correctCount", "wrongCount", "totalQuestions", "percentage", "durationSeconds", "xpEarned", "earnedBadges", "createdAt", "updatedAt"]
+    },
+    "Achievement": {
+      "title": "Achievement",
+      "description": "Definisi lencana prestasi siswa.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "title": { "type": "string", "minLength": 2, "maxLength": 100 },
+        "description": { "type": "string", "maxLength": 300 },
+        "criteria": { "type": "string", "maxLength": 200 },
+        "minXp": { "type": "number" },
+        "minScore": { "type": "number" },
+        "iconName": { "type": "string", "maxLength": 60 },
+        "isSample": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "title", "description", "criteria", "minXp", "minScore", "iconName", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Profil pengguna privat termasuk role dan email."
+    },
+    "/students/{studentId}": {
+      "schema": { "$ref": "#/entities/Student" },
+      "description": "Statistik belajar siswa dan ranking leaderboard tanpa PII."
+    },
+    "/teachers/{teacherId}": {
+      "schema": { "$ref": "#/entities/Teacher" },
+      "description": "Direktori guru Pendidikan Pancasila."
+    },
+    "/books/{bookId}": {
+      "schema": { "$ref": "#/entities/Book" },
+      "description": "Katalog buku digital eksternal."
+    },
+    "/quizzes/{quizId}": {
+      "schema": { "$ref": "#/entities/Quiz" },
+      "description": "Daftar quiz interaktif."
+    },
+    "/questions/{questionId}": {
+      "schema": { "$ref": "#/entities/Question" },
+      "description": "Daftar soal quiz tanpa kunci jawaban."
+    },
+    "/questions/{questionId}/answer_key/{keyId}": {
+      "schema": { "$ref": "#/entities/AnswerKey" },
+      "description": "Kunci jawaban terproteksi khusus guru dan admin."
+    },
+    "/quiz_results/{resultId}": {
+      "schema": { "$ref": "#/entities/QuizResult" },
+      "description": "Riwayat hasil quiz siswa."
+    },
+    "/achievements/{achievementId}": {
+      "schema": { "$ref": "#/entities/Achievement" },
+      "description": "Daftar lencana prestasi."
+    }
+  }
+}
